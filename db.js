@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+dotenv.config();
 
-const mongoURL = 'mongodb://localhost:27017/hotels';
+
+//const mongoURL = process.env.MongoDB_Compass_URL;
+const mongoURL = process.env.MongoDB_Atlas_URL;
 
 mongoose.connect(mongoURL, {
     useNewUrlParser: true,

@@ -1,5 +1,5 @@
 import express from 'express';
-import Employees from '../models/employees.js'; // Ensure model file name matches
+import Employees from '../models/employees.js'; 
 
 const router = express.Router();
 
@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 });
 
 // GET employee by ID
-router.get('/:id', async (req, res) => {
+router.get('/id/:id', async (req, res) => {
     try {
         const employee = await Employees.findById(req.params.id);
         if (!employee) return res.status(404).json({ message: 'Employee not found' });
@@ -25,7 +25,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // GET employees by work
-router.get('/:work', async (req, res) => {
+router.get('/work/:work', async (req, res) => {
     try {
         const employees = await Employees.find({ work: req.params.work.toLowerCase() });
         res.json(employees);
