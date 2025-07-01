@@ -1,0 +1,17 @@
+{
+  "name": "hotel_emp_menu_crud",
+  "version": "1.0.0",
+  "description": "hotel app",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Sams",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "mongoose": "^8.16.1"
+  }
+}
