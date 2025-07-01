@@ -12,9 +12,10 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 app.use(express.json());
 
-app.get('/health', (req, res) => {
-    res.send("Hello Sir/Ma'am Welcome to our Cafe...How can I help you?😊");
+app.get('/', (req, res) => {
+  res.send("Welcome to Coder's Cafe ☕ — My REST API is live! \n How can I help you?");
 });
+
 
 app.use('/employee', EmployeeRoutes);
 app.use('/menu', MenuItemRoutes);
