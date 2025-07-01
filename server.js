@@ -13,4 +13,5 @@ app.get('/', (req, res) => {
 app.use('/employee', EmployeeRoutes);
 app.use('/menu', MenuItemRoutes);
 
+// listener to listen port 3000 and console.log message
 app.listen(3000, () => console.log('Server listening at port 3000'));
