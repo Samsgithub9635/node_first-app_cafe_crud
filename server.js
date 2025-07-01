@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 app.use(express.json());
 
-app.get('/', (req, res) => {
+app.get('/health', (req, res) => {
     res.send("Hello Sir/Ma'am Welcome to our Cafe...How can I help you?😊");
 });
 

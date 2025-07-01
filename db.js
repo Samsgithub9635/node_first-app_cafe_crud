@@ -1,20 +1,30 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+
 dotenv.config();
 
-
-//const mongoURL = process.env.MongoDB_Compass_URL;
 const mongoURL = process.env.MongoDB_Atlas_URL;
 
-mongoose.connect(mongoURL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+async function connectDB() {
+  try {
+    await mongoose.connect(mongoURL);
+    console.log('✅ Connected to MongoDB Atlas');
+  } catch (err) {
+    console.error('❌ MongoDB connection error:', err);
+  }
+
+  mongoose.connection.on('disconnected', () => {
+    console.log('⚠️ MongoDB disconnected');
+  });
+}
+
+connectDB();
+
+// Graceful shutdown on process termination
+process.on('SIGINT', async () => {
+  await mongoose.connection.close();
+  console.log('🔌 MongoDB disconnected due to app termination');
+  process.exit(0);
 });
 
-const db = mongoose.connection;
-
-db.on('connected', () => console.log('Connected to MongoDB'));
-db.on('error', (err) => console.error('MongoDB connection error:', err));
-db.on('disconnected', () => console.log('MongoDB disconnected'));
-
-export default db;
+export default mongoose.connection;
