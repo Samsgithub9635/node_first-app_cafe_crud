@@ -39,8 +39,21 @@ const employeeSchema = new mongoose.Schema({
         type: Number,
         required: true,
         min: [0, 'Salary must be a positive number']
-    }
+    },
 
+    username: {
+        type: String,
+        required: true,
+        lowercase: true,
+        trim: true,
+        minlength: [4, 'Username must be at least 4 characters']
+    },
+    password: {
+        type: String,
+        required: true,
+        minlength: [6, 'Password must be at least 6 characters']
+        // Hashing should be handled before save via middleware
+    }
 });
 
 const Employee = mongoose.model('Employee', employeeSchema);
