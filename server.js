@@ -5,18 +5,27 @@ import MenuItemRoutes from './routes/MenuItemRoutes.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
+const app = express();
+app.use(express.json());
 
 // fetch port number from dotenv if run anywhere online other than my local pc else use 3000 my localhost port number
 const PORT = process.env.PORT || 3000;
 
-const app = express();
-app.use(express.json());
+//Middleware Function defining
+const logRequest = (req,res, next)  =>{
+  console.log(`${new Date().toLocaleString()} Request made to ${req.originalUrl}`);
+  next(); // Move on to the next phase
+} 
+
+// app.use used to use the middleware function to all route path or endpoint path (eg /employee, /menu, menu/taste, ... etc) to all the endpoints
+app.use(logRequest);
+
 
 app.get('/', (req, res) => {
   res.send("Welcome to Coder's Cafe ☕ — My REST API is live! \n How can I help you?");
 });
 
-
+// app.use is used to set the same route path for all urls
 app.use('/employee', EmployeeRoutes);
 app.use('/menu', MenuItemRoutes);
 
