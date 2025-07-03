@@ -1,17 +1,17 @@
 // sets up Passport with a local authentication strategy, using a Person model for user data. - Auth.js file
 
 import passport from 'passport';
-import { Strategy as LocalStrategy } from 'passport-local'; // ✅ Fix syntax
-import Employee from './models/employees.js'; // ✅ Correct model name and .js extension
+import { Strategy as LocalStrategy } from 'passport-local'; 
+import Employee from './models/employees.js'; 
 
 passport.use(new LocalStrategy(async (username, password, done) => {
     try {
         // console.log('Received credentials:', username, password);
-        const user = await Employee.findOne({ username }); // ✅ use Employee instead of Person
+        const user = await Employee.findOne({ username }); // 
         if (!user)
             return done(null, false, { message: 'Incorrect username.' });
 
-        const isPasswordMatch = await user.comparePassword(password); // ✅ assumes you have comparePassword method
+        const isPasswordMatch = await user.comparePassword(password); //bcrypt.comapre function used in the Employee=.js file
         if (isPasswordMatch)
             return done(null, user);
         else
@@ -21,4 +21,4 @@ passport.use(new LocalStrategy(async (username, password, done) => {
     }
 }));
 
-export default passport; // ✅ Convert to ES module export
+export default passport; 
