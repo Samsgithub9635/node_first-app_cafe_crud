@@ -1,7 +1,11 @@
 import express from 'express';
 import Employees from '../models/employees.js'; 
-
 const router = express.Router();
+// const {jwtAuthMiddleware, generateToken}=  require('../jwt.js');
+
+
+
+
 
 // GET all employees
 router.get('/', async (req, res) => {
@@ -34,16 +38,6 @@ router.get('/work/:work', async (req, res) => {
     }
 });
 
-// POST new employee
-router.post('/', async (req, res) => {
-    try {
-        const newEmp = new Employees(req.body);
-        await newEmp.save();
-        res.status(201).json(newEmp);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
-});
 
 // PUT update employee by ID
 router.put('/:id', async (req, res) => {
