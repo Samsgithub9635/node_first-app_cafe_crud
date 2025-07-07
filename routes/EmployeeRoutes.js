@@ -30,6 +30,34 @@ router.post('/signup', async (req, res) => {
     }
 });
 
+// Login Route
+router.post('/login', async(req, res)=>){
+    try{
+        // Extract username and password from request body
+        const {username, password} = req.body;
+
+        // Find the user by username
+        const employee = await Employees.findOne({username: username});
+
+        // If user does not exist or password does not match, return error
+        if( !employee || !(await employee.comparePassword(password))){
+            return res.status(401).json({error: 'Invalid username or password!'});  
+        } 
+
+        // genrate Token 
+        const payload ={
+            id: employee.id,
+            username: employee.username
+        }
+        const token = generateToken(payload);
+        
+    }catch(err){
+        console.log(err);
+        res.status(500).json({error: 'Internal Server Error!'});
+    }
+
+}
+
 
 // GET all employees
 router.get('/', async (req, res) => {
