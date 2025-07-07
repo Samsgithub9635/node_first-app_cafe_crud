@@ -9,8 +9,14 @@ router.post('/signup', async (req, res) => {
     try {
 
         // Create a new employee object(newEmp) of Employees type document using Mongoose model
-        const newEmp = new Employees(req.body); //req.body: contains 
-        await newEmp.save();
+        const newEmp = new Employees(req.body); //req.body: contains the data entered by the users
+
+        // save the new employee to the database and can be accessed by response
+        const response = await newEmp.save(); 
+
+        // the generated token in jwt.js is stored inside a const variable 'token'
+        const token =generateToken(response.username);
+
         res.status(201).json(newEmp);
     } catch (err) {
         res.status(400).json({ message: err.message });
