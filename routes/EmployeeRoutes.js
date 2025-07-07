@@ -1,10 +1,21 @@
 import express from 'express';
 import Employees from '../models/employees.js'; 
 const router = express.Router();
-// const {jwtAuthMiddleware, generateToken}=  require('../jwt.js');
+import {jwtAuthMiddleware, generateToken} from ('../jwt.js');
 
 
+// POST new employee that is to signup a new user
+router.post('/signup', async (req, res) => {
+    try {
 
+        // Create a new employee object(newEmp) of Employees type document using Mongoose model
+        const newEmp = new Employees(req.body); //req.body: contains 
+        await newEmp.save();
+        res.status(201).json(newEmp);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+});
 
 
 // GET all employees
