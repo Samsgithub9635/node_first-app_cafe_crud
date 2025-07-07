@@ -13,9 +13,16 @@ router.post('/signup', async (req, res) => {
 
         // save the new employee to the database and can be accessed by response
         const response = await newEmp.save(); 
-
+        
+        const payload ={ // payload is created to store employee id, username as user data 
+            id: response.id,
+            username: response.username
+        }
+        console.log(JSON.stringify(payload)); // logs the payload which contains user data: id, username in console just for testing
+        
+        // add the payload inside the generated token 
         // the generated token in jwt.js is stored inside a const variable 'token'
-        const token =generateToken(response.username);
+        const token =generateToken(payload);
 
         res.status(200).json({response: response, token: token});
     } catch (err) {
