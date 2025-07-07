@@ -17,7 +17,7 @@ router.post('/signup', async (req, res) => {
         // the generated token in jwt.js is stored inside a const variable 'token'
         const token =generateToken(response.username);
 
-        res.status(201).json(newEmp);
+        res.status(200).json({response: response, token: token});
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
