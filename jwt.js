@@ -11,7 +11,7 @@ const jwtAuthMiddleware = (req, res, next)=>{
         const decoded = jwt.verify(token, process.env.JWT_SECRET); //jwt.verify() used to verify the token taking the token and the secret key(JWT_SECRET) and returns the payload
 
         // Attach user information to the request object
-        req.userJWTPayload = decoded //the decoded payload came we want to send it to server
+        req.userJWTPayload = decoded; //the decoded payload came we want to send it to server
         next();
     }catch(err){
         console.error(err);
@@ -24,7 +24,7 @@ const jwtAuthMiddleware = (req, res, next)=>{
 // Function to generate JWT token
 const generateToken = (userData) => {
     // Generate a new JWT token using user data 
-    return jwt.sign(userData, process.env.JWT_SECRET);
+    return jwt.sign(userData, process.env.JWT_SECRET, {espiresIn: 30});
 }
 
 module.exports = (jwtAuthMiddleware, generateToken);
