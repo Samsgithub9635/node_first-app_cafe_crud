@@ -31,7 +31,7 @@ router.post('/signup', async (req, res) => {
 });
 
 // Login Route
-router.post('/login', async(req, res)=>){
+router.post('/login', async(req, res)=>{
     try{
         // Extract username and password from request body
         const {username, password} = req.body;
@@ -50,13 +50,31 @@ router.post('/login', async(req, res)=>){
             username: employee.username
         }
         const token = generateToken(payload);
-        
+
     }catch(err){
         console.log(err);
         res.status(500).json({error: 'Internal Server Error!'});
     }
 
-}
+});
+
+// Profile Route
+// in profile route we are not sending any data just using get method which is protect by jwtmiddleware, we just extract the userId and username from payload in that token and send as response
+router.get('/profile', jwtAuthMiddleware, async (req, res)=>{ 
+    try{
+        const userData =req.body;
+        console.log("User Data: ", userData);
+        
+        const userId = userData.id;
+        const user = await Employees.findById(userId);
+
+        res.status(200).json({user});
+
+    }catch(err){
+        console.log(err);
+        res.status(500).json({error: 'Internal Server Error!'});
+    }
+});
 
 
 // GET all employees
