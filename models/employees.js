@@ -81,7 +81,6 @@ employeeSchema.pre('save', async function(next) { //.pre is a middleware functio
     }
 }) 
 
-
 employeeSchema.method.comparePassword = async function(candidatePassword){
     try{
         // Use bcrypt to compare the provided password with the hashed password
